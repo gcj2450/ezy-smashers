@@ -6,9 +6,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-public class GamePlayController : EzyDefaultController
+public class GamePlayController : EzyAbstractController
 {
-	[SerializeField]
+    [SerializeField]
+    private SocketConfigVariable socketConfigHolderVariable;
+    EzySocketConfig config;
+
+    [SerializeField]
 	private UnityEvent<PlayerSyncPositionModel> playerSyncPositionEvent;
 	
 	[SerializeField]
@@ -20,6 +24,8 @@ public class GamePlayController : EzyDefaultController
 	private new void OnEnable()
 	{
 		base.OnEnable();
+		config = GetSocketConfig();
+
 		AddHandler<EzyArray>(Commands.SYNC_POSITION, OnPlayerSyncPosition);
 		AddHandler<EzyObject>(Commands.PLAYER_BEING_ATTACKED, OnPlayerBeingAttacked);
 		AddHandler<EzyObject>(Commands.PLAYER_ATTACK_DATA, OnPlayerAttackResponse);
@@ -119,5 +125,20 @@ public class GamePlayController : EzyDefaultController
 		SceneManager.LoadScene("LobbyScene");
 	}
 
-	#endregion
+    #endregion
+
+    protected override EzySocketConfig GetSocketConfig()
+    {
+        var configVariable = socketConfigHolderVariable.Value;
+        return EzySocketConfig.GetBuilder()
+            .ZoneName(configVariable.ZoneName)
+            .AppName(configVariable.AppName)
+            .WebSocketUrl(configVariable.WebSocketUrl)
+            .TcpUrl(configVariable.TcpUrl)
+            .UdpPort(configVariable.UdpPort)
+            .UdpUsage(configVariable.UdpUsage)
+            .EnableSSL(configVariable.EnableSSL)
+            .Build();
+    }
+
 }

@@ -471,6 +471,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7598709637364052337, guid: 65852b7b25ea145bd931b355ed90e9a0, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7598709637364052339, guid: 65852b7b25ea145bd931b355ed90e9a0, type: 3}
       propertyPath: m_Name
       value: UIPanel
@@ -596,6 +600,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7733247471752395554, guid: 5eb20f155476a47f0b94054cabbcb3d2, type: 3}
+      propertyPath: socketConfigHolderVariable
+      value: 
+      objectReference: {fileID: 11400000, guid: 97d47b154fe7779b6823a009b3eb081c, type: 2}
     - target: {fileID: 7733247471752395555, guid: 5eb20f155476a47f0b94054cabbcb3d2, type: 3}
       propertyPath: m_Name
       value: LobbySocketController

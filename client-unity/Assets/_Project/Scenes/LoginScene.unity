@@ -319,6 +319,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8219859992849512279, guid: 54ec45d6a8dec23f7845a8bbee431827, type: 3}
+      propertyPath: socketConfigHolderVariable
+      value: 
+      objectReference: {fileID: 11400000, guid: 97d47b154fe7779b6823a009b3eb081c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54ec45d6a8dec23f7845a8bbee431827, type: 3}
 --- !u!1001 &2008424175
@@ -513,6 +517,10 @@ PrefabInstance:
     - target: {fileID: 2375642340711035457, guid: d45be679a07e99ac49a4ff35784e8904, type: 3}
       propertyPath: m_Name
       value: UIPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2375642340711035459, guid: d45be679a07e99ac49a4ff35784e8904, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2375642340711035485, guid: d45be679a07e99ac49a4ff35784e8904, type: 3}
       propertyPath: m_Pivot.x

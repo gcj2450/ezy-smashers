@@ -5,8 +5,13 @@ using com.tvd12.ezyfoxserver.client.unity;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class GameLoungeController : EzyDefaultController
+public class GameLoungeController : EzyAbstractController
 {
+    [SerializeField]
+    private SocketConfigVariable socketConfigHolderVariable;
+
+    EzySocketConfig config;
+
     [SerializeField]
     private UnityEvent<List<PlayerModel>> updateRoomPlayersEvent;
     
@@ -16,6 +21,8 @@ public class GameLoungeController : EzyDefaultController
     private new void OnEnable()
     {
         base.OnEnable();
+        config = GetSocketConfig();
+
         AddHandler<EzyObject>(Commands.GET_MMO_ROOM_PLAYERS, OnGetMMORoomPlayersResponse);
         AddHandler<EzyObject>(Commands.ANOTHER_JOIN_MMO_ROOM, OnAnotherJoinMMORoom);
         AddHandler<EzyObject>(Commands.ANOTHER_EXIT_MMO_ROOM, OnAnotherExitMMORoom);
@@ -87,4 +94,18 @@ public class GameLoungeController : EzyDefaultController
     }
 
     #endregion
+
+    protected override EzySocketConfig GetSocketConfig()
+    {
+        var configVariable = socketConfigHolderVariable.Value;
+        return EzySocketConfig.GetBuilder()
+            .ZoneName(configVariable.ZoneName)
+            .AppName(configVariable.AppName)
+            .WebSocketUrl(configVariable.WebSocketUrl)
+            .TcpUrl(configVariable.TcpUrl)
+            .UdpPort(configVariable.UdpPort)
+            .UdpUsage(configVariable.UdpUsage)
+            .EnableSSL(configVariable.EnableSSL)
+            .Build();
+    }
 }

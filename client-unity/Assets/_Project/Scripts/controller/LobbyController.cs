@@ -6,9 +6,13 @@ using com.tvd12.ezyfoxserver.client.unity;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class LobbyController : EzyDefaultController
+public class LobbyController : EzyAbstractController
 {
-	[SerializeField]
+    [SerializeField]
+    private SocketConfigVariable socketConfigHolderVariable;
+    EzySocketConfig config;
+
+    [SerializeField]
 	private UnityEvent<List<int>> mmoRoomIdListUpdateEvent;
 
 	[SerializeField]
@@ -17,7 +21,10 @@ public class LobbyController : EzyDefaultController
 	protected new void OnEnable()
 	{
 		base.OnEnable();
-		AddHandler<EzyObject>(Commands.CREATE_MMO_ROOM, JoinRoom);
+
+        config = GetSocketConfig();
+
+        AddHandler<EzyObject>(Commands.CREATE_MMO_ROOM, JoinRoom);
 		AddHandler<EzyArray>(Commands.GET_MMO_ROOM_ID_LIST, OnMMORoomIdListResponse);
 		AddHandler<EzyObject>(Commands.JOIN_MMO_ROOM, JoinRoom);
 		RefreshRoomIdList();
@@ -66,5 +73,19 @@ public class LobbyController : EzyDefaultController
 		appProxy.send(Commands.JOIN_MMO_ROOM, data);
 	}
 
-	#endregion
+    #endregion
+
+    protected override EzySocketConfig GetSocketConfig()
+    {
+        var configVariable = socketConfigHolderVariable.Value;
+        return EzySocketConfig.GetBuilder()
+            .ZoneName(configVariable.ZoneName)
+            .AppName(configVariable.AppName)
+            .WebSocketUrl(configVariable.WebSocketUrl)
+            .TcpUrl(configVariable.TcpUrl)
+            .UdpPort(configVariable.UdpPort)
+            .UdpUsage(configVariable.UdpUsage)
+            .EnableSSL(configVariable.EnableSSL)
+            .Build();
+    }
 }

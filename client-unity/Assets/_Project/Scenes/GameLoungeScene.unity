@@ -352,23 +352,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 692008061727866864, guid: 761334f4c34e292abba4f8b6552f7248, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 692008061727866864, guid: 761334f4c34e292abba4f8b6552f7248, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 692008061727866864, guid: 761334f4c34e292abba4f8b6552f7248, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 827.1974
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 692008061727866864, guid: 761334f4c34e292abba4f8b6552f7248, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 423.5987
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 692008061727866864, guid: 761334f4c34e292abba4f8b6552f7248, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -36.52945
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3141376010704293335, guid: 761334f4c34e292abba4f8b6552f7248, type: 3}
       propertyPath: m_SizeDelta.y
@@ -659,6 +659,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3575746198287571914, guid: f02870c9870967d98a70ce0482540c5b, type: 3}
+      propertyPath: socketConfigHolderVariable
+      value: 
+      objectReference: {fileID: 11400000, guid: 97d47b154fe7779b6823a009b3eb081c, type: 2}
     - target: {fileID: 3575746198287571915, guid: f02870c9870967d98a70ce0482540c5b, type: 3}
       propertyPath: m_Name
       value: GameLoungeSocketController

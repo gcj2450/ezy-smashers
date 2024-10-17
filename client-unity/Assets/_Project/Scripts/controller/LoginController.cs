@@ -7,9 +7,14 @@ using UnityEngine;
 using UnityEngine.Events;
 using Object = System.Object;
 
-public class LoginController : EzyDefaultController
+public class LoginController : EzyAbstractController
 {
-	[SerializeField]
+    [SerializeField]
+    private SocketConfigVariable socketConfigHolderVariable;
+
+	EzySocketConfig config;
+
+    [SerializeField]
 	private StringVariable username;
 	
 	[SerializeField]
@@ -21,7 +26,9 @@ public class LoginController : EzyDefaultController
 	private new void OnEnable()
 	{
 		base.OnEnable();
-		AddHandler<Object>(Commands.JOIN_LOBBY, OnJoinedLobby);
+		config = GetSocketConfig();
+
+        AddHandler<Object>(Commands.JOIN_LOBBY, OnJoinedLobby);
 	}
 
 	public void Login()
@@ -36,11 +43,11 @@ public class LoginController : EzyDefaultController
 		socketProxy.setLoginUsername(username.Value);
 		socketProxy.setLoginPassword(password.Value);
 #if UNITY_WEBGL && !UNITY_EDITOR
-		socketProxy.setUrl(socketConfigVariable.Value.WebSocketUrl);
+		socketProxy.setUrl(config.Value.WebSocketUrl);
 #else
-		socketProxy.setUrl(socketConfigVariable.Value.TcpUrl);
-		socketProxy.setUdpPort(socketConfigVariable.Value.UdpPort);
-		socketProxy.setDefaultAppName(socketConfigVariable.Value.AppName);
+        socketProxy.setUrl(config.TcpUrl);
+		socketProxy.setUdpPort(config.UdpPort);
+		socketProxy.setDefaultAppName(config.AppName);
 		socketProxy.setTransportType(EzyTransportType.UDP);
 		socketProxy.onUdpHandshake<Object>(HandleUdpHandshake);
 #endif
@@ -58,7 +65,7 @@ public class LoginController : EzyDefaultController
 	private void HandleUdpHandshake(EzySocketProxy proxy, Object data)
 	{
 		LOGGER.debug("HandleUdpHandshake");
-		socketProxy.send(new EzyAppAccessRequest(socketConfigVariable.Value.AppName));
+		socketProxy.send(new EzyAppAccessRequest(config.AppName));
 	}
 
     
@@ -72,4 +79,18 @@ public class LoginController : EzyDefaultController
 	{
 		myPlayerJoinedLobbyEvent?.Invoke(username.Value);
 	}
+
+    protected override EzySocketConfig GetSocketConfig()
+    {
+        var configVariable = socketConfigHolderVariable.Value;
+        return EzySocketConfig.GetBuilder()
+            .ZoneName(configVariable.ZoneName)
+            .AppName(configVariable.AppName)
+            .WebSocketUrl(configVariable.WebSocketUrl)
+            .TcpUrl(configVariable.TcpUrl)
+            .UdpPort(configVariable.UdpPort)
+            .UdpUsage(configVariable.UdpUsage)
+            .EnableSSL(configVariable.EnableSSL)
+            .Build();
+    }
 }
