@@ -561,12 +561,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9004647241733411895, guid: d45be679a07e99ac49a4ff35784e8904, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -75.25998
+      objectReference: {fileID: 0}
+    - target: {fileID: 9004647241733411895, guid: d45be679a07e99ac49a4ff35784e8904, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 39.76001
       objectReference: {fileID: 0}
     - target: {fileID: 9004647241733411896, guid: d45be679a07e99ac49a4ff35784e8904, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9004647242182512692, guid: d45be679a07e99ac49a4ff35784e8904, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -187.99004
+      objectReference: {fileID: 0}
+    - target: {fileID: 9004647242182512692, guid: d45be679a07e99ac49a4ff35784e8904, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 37.564976
+      objectReference: {fileID: 0}
+    - target: {fileID: 9004647242704958463, guid: d45be679a07e99ac49a4ff35784e8904, type: 3}
+      propertyPath: m_text
+      value: use ezy-smashers;
       objectReference: {fileID: 0}
     - target: {fileID: 9004647242704958463, guid: d45be679a07e99ac49a4ff35784e8904, type: 3}
       propertyPath: m_fontSize
@@ -575,6 +591,14 @@ PrefabInstance:
     - target: {fileID: 9004647242704958463, guid: d45be679a07e99ac49a4ff35784e8904, type: 3}
       propertyPath: m_fontSizeBase
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 9004647243150991676, guid: d45be679a07e99ac49a4ff35784e8904, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -187.99004
+      objectReference: {fileID: 0}
+    - target: {fileID: 9004647243150991676, guid: d45be679a07e99ac49a4ff35784e8904, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 37.564976
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d45be679a07e99ac49a4ff35784e8904, type: 3}
