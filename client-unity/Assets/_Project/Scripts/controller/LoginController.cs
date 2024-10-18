@@ -1,11 +1,14 @@
 ﻿using com.tvd12.ezyfoxserver.client.constant;
+using com.tvd12.ezyfoxserver.client.entity;
 using com.tvd12.ezyfoxserver.client.logger;
 using com.tvd12.ezyfoxserver.client.request;
 using com.tvd12.ezyfoxserver.client.support;
 using com.tvd12.ezyfoxserver.client.unity;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using Object = System.Object;
+using UnityEngine.UI;
 
 public class LoginController : EzyAbstractController
 {
@@ -19,18 +22,26 @@ public class LoginController : EzyAbstractController
 	
 	[SerializeField]
 	private StringVariable password;
-	
-	[SerializeField]
-	private UnityEvent<string> myPlayerJoinedLobbyEvent;
 
-	private new void OnEnable()
+	[SerializeField]
+	private Button LoginBtn;
+
+    private void Awake()
+    {
+		LoginBtn.onClick.AddListener(Login);
+    }
+
+    private new void OnEnable()
 	{
 		base.OnEnable();
 		config = GetSocketConfig();
 
-        AddHandler<Object>(Commands.JOIN_LOBBY, OnJoinedLobby);
+        AddHandler<EzyObject>(Commands.JOIN_LOBBY, OnJoinedLobby);
 	}
 
+	/// <summary>
+	/// 登录按钮响应
+	/// </summary>
 	public void Login()
 	{
 		LOGGER.debug("Login username = " + username.Value + ", password = " + password.Value);
@@ -75,10 +86,21 @@ public class LoginController : EzyAbstractController
 		appProxy.send(Commands.JOIN_LOBBY);
 	}
 
-	void OnJoinedLobby(EzyAppProxy appProxy, Object data)
+	/// <summary>
+	/// JoinLobby成功回调
+	/// </summary>
+	/// <param name="appProxy"></param>
+	/// <param name="data"></param>
+	void OnJoinedLobby(EzyAppProxy appProxy, EzyObject data)
 	{
-		myPlayerJoinedLobbyEvent?.Invoke(username.Value);
-	}
+		//lobbyRoomId
+        int lobbyRoomId = data.get<int>("lobbyRoomId");
+        Debug.Log($"OnJoinedLobby: {data.GetType().ToString()}, lobbyRoomId: {lobbyRoomId}");
+
+        PlayerRepository.GetInstance()
+            .UpdateMyPlayer(new PlayerModel(username.Value, false));
+        SceneManager.LoadScene("LobbyScene");
+    }
 
     protected override EzySocketConfig GetSocketConfig()
     {
