@@ -9,6 +9,7 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using Object = System.Object;
 using UnityEngine.UI;
+using com.tvd12.ezyfoxserver.client.evt;
 
 public class LoginController : EzyAbstractController
 {
@@ -48,6 +49,7 @@ public class LoginController : EzyAbstractController
 		LOGGER.debug("Socket clientName = " + socketProxy.getClient().getName());
 		
 		socketProxy.onLoginSuccess<Object>(HandleLoginSuccess);
+		socketProxy.onDisconnected(HandleOnDisconnected);
 		socketProxy.onAppAccessed<Object>(HandleAppAccessed);
 		
 		// Login to socket server
@@ -64,8 +66,13 @@ public class LoginController : EzyAbstractController
 #endif
 		socketProxy.connect();
 	}
-	
-	private void HandleLoginSuccess(EzySocketProxy proxy, Object data)
+
+    private void HandleOnDisconnected(EzySocketProxy socketProxy, EzyDisconnectionEvent evt)
+    {
+
+    }
+
+    private void HandleLoginSuccess(EzySocketProxy proxy, Object data)
 	{
 		LOGGER.debug("Log in successfully");
 #if UNITY_WEBGL && !UNITY_EDITOR
